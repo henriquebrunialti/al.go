@@ -15,8 +15,53 @@ limitations under the License.
 */
 package main
 
-import "al.go/cmd"
+import (
+	"log"
+	"al.go/visualizer"
+	"github.com/gdamore/tcell/v2"
+)
 
 func main() {
-	cmd.Execute()
+	v, err := visualizer.New()
+
+	if err != nil {
+		log.Printf("Error on initalizing ... %v", err)
+	}
+
+	log.Printf("---visualizer properties---\n")
+	w, h := v.Screen.Size()
+	log.Printf("w: %v h: %v\n",w, h)
+	if w/2%2 == 1 {
+		w += 2
+	}
+	v.Rect = visualizer.NewMovingRectangle((w-1)/2, 0, 1, 1, 1)
+
+	quit := make(chan interface{})
+	
+	go func() {
+		for {
+			ev := v.Screen.PollEvent()
+			switch ev := ev.(type) {
+			case *tcell.EventKey:
+				switch ev.Key() {
+				case tcell.KeyEscape, tcell.KeyEnter:
+					quit<--1
+				}
+			}
+		}
+	}()
+	exit := false
+	for !exit {
+		select {
+		case <-v.Ticker.C:
+			 v.Screen.Clear()
+			 
+			 visualizer.Move(v.Rect)
+			 visualizer.DrawRect(v, v.Rect)
+			 v.Screen.Show()
+		case <-quit:
+			exit = true
+			break
+		}
+	}
 }
