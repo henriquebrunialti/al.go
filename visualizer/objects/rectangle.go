@@ -11,9 +11,9 @@ type Rectangle struct {
 
 //Draw the Rectangle on the screen
 func (rect *Rectangle) Draw(scr tcell.Screen) {
-	//Traverse the width of the Rectangle from the top left corner point
+	//Traverse the width of the Rectangle starting on the top left corner point
 	for i := rect.TopLeftCorner.X; i < rect.TopLeftCorner.X + rect.Width; i++ {
-		//Traverse the height of the Rectangle from the top left corner point
+		//Traverse the height of the Rectangle starting on top left corner point
 		for j := rect.TopLeftCorner.Y; j < rect.TopLeftCorner.Y + rect.Height; j++ {
 			//Fill the rectangle with whitespaces
 			scr.SetContent(i, j, ' ', nil, tcell.StyleDefault.Background(tcell.ColorBlue).Foreground(tcell.ColorWhite))
@@ -23,7 +23,10 @@ func (rect *Rectangle) Draw(scr tcell.Screen) {
 
 //MoveDown moves the rectangle downwards
 func (rect *Rectangle) MoveDown(velocity int) {
-	rect.TopLeftCorner.X -= 2 * velocity
+	if velocity < 0 {
+		velocity *= -1
+	}
+
 	rect.TopLeftCorner.Y += velocity
 }
 
