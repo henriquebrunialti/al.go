@@ -34,7 +34,7 @@ func main() {
 	if w/2%2 == 1 {
 		w += 2
 	}
-	v.Rect = visualizer.NewMovingRectangle((w-1)/2, 0, 1, 1, 1)
+	v.Rect = visualizer.NewMovingRectangle((w-1)/2, 0, 5,5)
 
 	quit := make(chan interface{})
 	
@@ -55,9 +55,8 @@ func main() {
 		select {
 		case <-v.Ticker.C:
 			 v.Screen.Clear()
-			 
-			 visualizer.Move(v.Rect)
-			 visualizer.DrawRect(v, v.Rect)
+			 v.Rect.MoveDown(-2)
+			 v.Rect.Draw(v.Screen)
 			 v.Screen.Show()
 		case <-quit:
 			exit = true

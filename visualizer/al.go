@@ -4,22 +4,13 @@ import (
 	"time"
 
 	"github.com/gdamore/tcell/v2"
+	"al.go/visualizer/objects"
 )
 
 
-type MovingRectangle struct {
-	x        int
-	y        int
-	initialX    int
-	initialY    int
-	diameter int
-	velx     int
-	vely     int
-}
-
 type Visualizer struct {
 	Screen tcell.Screen
-	Rect *MovingRectangle
+	Rect *objects.Rectangle
 	Ticker *time.Ticker
 }
 
@@ -36,28 +27,12 @@ func New() (*Visualizer, error) {
 	
 	return &Visualizer{
 		s,
-		&MovingRectangle{},
+		&objects.Rectangle{},
 		time.NewTicker(1000000 / 1 * time.Microsecond),
 	}, nil
 }
 
-func NewMovingRectangle(x int, y int, d int, velx int, vely int) *MovingRectangle {
-	mr := &MovingRectangle{x, y, x, y, d, velx, vely}
+func NewMovingRectangle(x int, y int, w, h int) *objects.Rectangle {
+	mr := objects.New(objects.Point{x, y}, w, h)
 	return mr
-}
-
-
-func Move(b *MovingRectangle) {
-	b.x -= 2 * b.velx
-	b.y += b.vely
-}
-
-
-func DrawRect(v *Visualizer, b *MovingRectangle) {
-	for i := b.x; i < b.x+2*b.diameter; i++ {
-		for j := b.y; j < b.y+b.diameter; j++ {
-			// combc is in most cases nil
-			v.Screen.SetContent(i, j, 'X', nil, tcell.StyleDefault.Background(tcell.ColorBlue).Foreground(tcell.ColorWhite))
-		}
-	}
 }
