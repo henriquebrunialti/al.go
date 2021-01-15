@@ -16,28 +16,13 @@ limitations under the License.
 package main
 
 import (
-	"log"
 	"al.go/visualizer"
 	"github.com/gdamore/tcell/v2"
 )
 
 func main() {
-	v, err := visualizer.New()
-
-	if err != nil {
-		log.Printf("Error on initalizing ... %v", err)
-	}
-
-	log.Printf("---visualizer properties---\n")
-	w, h := v.Screen.Size()
-	log.Printf("w: %v h: %v\n",w, h)
-	if w/2%2 == 1 {
-		w += 2
-	}
-	v.Rect = visualizer.NewMovingRectangle((w-1)/2, 0, 5,5)
-
-	quit := make(chan interface{})
-	
+	quit := make(chan bool)
+	v, _ := visualizer.New()
 	go func() {
 		for {
 			ev := v.Screen.PollEvent()
@@ -45,22 +30,11 @@ func main() {
 			case *tcell.EventKey:
 				switch ev.Key() {
 				case tcell.KeyEscape, tcell.KeyEnter:
-					quit<--1
+					quit<-true
 				}
 			}
 		}
 	}()
-	exit := false
-	for !exit {
-		select {
-		case <-v.Ticker.C:
-			 v.Screen.Clear()
-			 v.Rect.MoveDown(-2)
-			 v.Rect.Draw(v.Screen)
-			 v.Screen.Show()
-		case <-quit:
-			exit = true
-			break
-		}
-	}
+
+	visualizer.Visualize(nil, v, quit)
 }

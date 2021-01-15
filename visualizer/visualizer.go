@@ -36,3 +36,25 @@ func NewMovingRectangle(x int, y int, w, h int) *objects.Rectangle {
 	mr := objects.New(objects.Point{x, y}, w, h)
 	return mr
 }
+
+//Visualize an Animation
+func Visualize(animation Animation, v  *Visualizer, quit chan bool) {
+	w, _ := v.Screen.Size()
+	if w/2%2 == 1 {
+		w += 2
+	}
+	v.Rect = NewMovingRectangle((w-1)/2, 0, 5,5)
+	exit := false
+	for !exit {
+		select {
+		case <-v.Ticker.C:
+			 v.Screen.Clear()
+			 v.Rect.MoveDown(-2)
+			 v.Rect.Draw(v.Screen)
+			 v.Screen.Show()
+		case <-quit:
+			exit = true
+			break
+		}
+	}
+}
