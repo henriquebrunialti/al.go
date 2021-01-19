@@ -3,15 +3,16 @@ package visualizer
 import (
 	"time"
 
+	"al.go/terminal"
 	"github.com/gdamore/tcell/v2"
-	"al.go/visualizer/objects"
 )
 
 
 type Visualizer struct {
 	Screen tcell.Screen
-	Rect *objects.Rectangle
 	Ticker *time.Ticker
+
+	exit bool
 }
 
 func New() (*Visualizer, error) {
@@ -27,34 +28,34 @@ func New() (*Visualizer, error) {
 	
 	return &Visualizer{
 		s,
-		&objects.Rectangle{},
 		time.NewTicker(1000000 / 1 * time.Microsecond),
+		false,
 	}, nil
 }
 
-func NewMovingRectangle(x int, y int, w, h int) *objects.Rectangle {
-	mr := objects.New(objects.Point{x, y}, w, h)
-	return mr
-}
 
 //Visualize an Animation
-func Visualize(animation Animation, v  *Visualizer, quit chan bool) {
-	w, _ := v.Screen.Size()
-	if w/2%2 == 1 {
-		w += 2
-	}
-	v.Rect = NewMovingRectangle((w-1)/2, 0, 5,5)
-	exit := false
-	for !exit {
+func (v  *Visualizer) Visualize(animation Animation, keyboard <-chan terminal.KeyboardEvent) {
+	s := make(chan Signal)
+	go animation.Run(v.Screen, v.Ticker, s)
+	for !v.exit {
 		select {
-		case <-v.Ticker.C:
-			 v.Screen.Clear()
-			 v.Rect.MoveDown(-2)
-			 v.Rect.Draw(v.Screen)
-			 v.Screen.Show()
-		case <-quit:
-			exit = true
-			break
+		case evt := <-keyboard:
+			v.handleKeyboard(&evt, s)
 		}
+	}
+}
+
+func (v *Visualizer) handleKeyboard(evt *terminal.KeyboardEvent, s chan<- Signal) {
+	if evt.KeyPressed == "Esc" {
+		s <- Stop
+		v.exit = true
+		return
+	}
+	if evt.KeyPressed == "Space" {
+		s <- Stop
+	}
+	if evt.KeyPressed == "Enter" {
+		s <- Start
 	}
 }
