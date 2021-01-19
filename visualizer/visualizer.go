@@ -47,15 +47,13 @@ func (v  *Visualizer) Visualize(animation Animation, keyboard <-chan terminal.Ke
 }
 
 func (v *Visualizer) handleKeyboard(evt *terminal.KeyboardEvent, s chan<- Signal) {
+
 	if evt.KeyPressed == "Esc" {
 		s <- Stop
 		v.exit = true
 		return
 	}
-	if evt.KeyPressed == "Space" {
-		s <- Stop
-	}
 	if evt.KeyPressed == "Enter" {
-		s <- Start
+		s <- Stop
 	}
 }

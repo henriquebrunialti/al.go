@@ -2,11 +2,11 @@ package misc
 
 import (
 	"time"
+
 	"github.com/gdamore/tcell/v2"
 
 	"al.go/visualizer"
 	"al.go/visualizer/objects"
-
 )
 
 //MovingRectangle is a Animation of a Rectangle Moving Around the screen
@@ -51,6 +51,7 @@ func (mv *MovingRectangle) Run(scr tcell.Screen, ticker *time.Ticker, signal <-c
 }
 
 func (mv *MovingRectangle) handleSignal(s visualizer.Signal){
+
 	switch s {
 	case visualizer.Stop:
 		mv.state.IsRunning = false
