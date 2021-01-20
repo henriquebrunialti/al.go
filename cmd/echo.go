@@ -16,8 +16,6 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
@@ -30,7 +28,7 @@ var echoCmd = &cobra.Command{
 }
 
 func dancingCursor() {
-	
+
 }
 
 func init() {
