@@ -1,43 +1,43 @@
 package visualizer
 
 import (
+	"log"
 	"time"
 
 	"al.go/terminal"
-	"github.com/gdamore/tcell/v2"
 )
 
 
+//Visualizer is an object that orchestrates an animation by handling things such as Frames per second and keyboard events
+//It also blocks the program so it does not quit before the animation ends or the user press "Esc"
 type Visualizer struct {
-	Screen tcell.Screen
+	Scr terminal.Screen
 	Ticker *time.Ticker
 
 	exit bool
 }
 
-func New() (*Visualizer, error) {
-	s, err := tcell.NewScreen()
-
-	if err != nil {
-		return nil, err
-	}
-
-	if err = s.Init(); err != nil {
-		return nil, err
-	}
-	
+//New creates a new visualizer
+func New(scr terminal.Screen) (*Visualizer) {	
 	return &Visualizer{
-		s,
+		scr,
 		time.NewTicker(1000000 / 1 * time.Microsecond),
 		false,
-	}, nil
+	}
 }
 
 
 //Visualize an Animation
 func (v  *Visualizer) Visualize(animation Animation, keyboard <-chan terminal.KeyboardEvent) {
+	err := v.Scr.Init()
+
+	if err != nil {
+		log.Fatalf("Fatal error, could not initialize the screen: %v", err)
+		return
+	}
+
 	s := make(chan Signal)
-	go animation.Run(v.Screen, v.Ticker, s)
+	go animation.Run(v.Scr, v.Ticker, s)
 	for !v.exit {
 		select {
 		case evt := <-keyboard:

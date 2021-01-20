@@ -8,12 +8,13 @@ import (
 )
 
 func main() {
-	v, _ := visualizer.New()
+	tc := tcell.New()
+	v := visualizer.New(tc)
+
 	mv := misc.NewMovingRectangleAnimation()
-	k := tcell.New(v.Screen)
 	keyEvents := make(chan terminal.KeyboardEvent)
 
-	go k.WaitForEvent(keyEvents)
+	go tc.WaitForEvent(keyEvents)
 
 	v.Visualize(mv, keyEvents)
 }

@@ -2,11 +2,9 @@ package misc
 
 import (
 	"time"
-
-	"github.com/gdamore/tcell/v2"
-
 	"al.go/visualizer"
 	"al.go/visualizer/objects"
+	"al.go/terminal"
 )
 
 //MovingRectangle is a Animation of a Rectangle Moving Around the screen
@@ -28,7 +26,7 @@ func NewMovingRectangleAnimation() *MovingRectangle {
 }
 
 //Run the animation
-func (mv *MovingRectangle) Run(scr tcell.Screen, ticker *time.Ticker, signal <-chan visualizer.Signal)  {
+func (mv *MovingRectangle) Run(scr terminal.Screen, ticker *time.Ticker, signal <-chan visualizer.Signal)  {
 	w, _ := scr.Size()
 	if w/2%2 == 1 {
 		w += 2
@@ -50,8 +48,12 @@ func (mv *MovingRectangle) Run(scr tcell.Screen, ticker *time.Ticker, signal <-c
 	}
 }
 
-func (mv *MovingRectangle) handleSignal(s visualizer.Signal){
+//CurrentState ...
+func (mv *MovingRectangle) CurrentState() visualizer.AnimationState {
+	return mv.state
+} 
 
+func (mv *MovingRectangle) handleSignal(s visualizer.Signal){
 	switch s {
 	case visualizer.Stop:
 		mv.state.IsRunning = false

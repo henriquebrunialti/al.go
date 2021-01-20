@@ -1,6 +1,6 @@
 package objects
 
-import "github.com/gdamore/tcell/v2"
+import "al.go/terminal"
 
 //Rectangle is a object that can be drawn on the screen
 type Rectangle struct {
@@ -10,13 +10,19 @@ type Rectangle struct {
 }
 
 //Draw the Rectangle on the screen
-func (rect *Rectangle) Draw(scr tcell.Screen) {
+func (rect *Rectangle) Draw(scr terminal.Screen) {
 	//Traverse the width of the Rectangle starting at the top left corner point
 	for i := rect.TopLeftCorner.X; i < rect.TopLeftCorner.X + rect.Width * 2; i++ {
 		//Traverse the height of the Rectangle starting at top left corner point
 		for j := rect.TopLeftCorner.Y; j < rect.TopLeftCorner.Y + rect.Height; j++ {
 			//Fill the rectangle with whitespaces
-			scr.SetContent(i, j, ' ', nil, tcell.StyleDefault.Background(tcell.ColorBlue).Foreground(tcell.ColorWhite))
+			p := terminal.Point{ X: i, Y: j}
+			style := terminal.StylingOptions{ 
+				Primary: ' ',
+				BackgroudColor: terminal.ColorBlue,
+				ForegroundColor: terminal.ColorWhite,
+			}
+			scr.DrawAt(p, style)
 		}
 	}
 }
