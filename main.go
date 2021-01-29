@@ -10,7 +10,7 @@ import (
 func main() {
 	tc := tcell.New()
 	v := visualizer.New(tc)
-
+	
 	mv := misc.NewMovingRectangleAnimation()
 	keyEvents := make(chan terminal.KeyboardEvent)
 

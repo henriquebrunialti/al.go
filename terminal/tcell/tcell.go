@@ -20,7 +20,7 @@ func New() *Terminal {
 	return &Terminal{s}
 }
 
-//Init initializes the screnn for use
+//Init initializes the screen for use
 func (t *Terminal) Init() (error) {
 	if err := t.scr.Init(); err != nil {
 		return err
@@ -55,10 +55,10 @@ func (t *Terminal) Clear() {
 
 //Show the content on the screen
 func (t *Terminal) Show() {
-	t.scr.Show()
+	t.scr.Sync()
 }
 
 //DrawAt uses the tcell.Screen.SetContent() to draw at a specific point
-func (t *Terminal) DrawAt(p terminal.Point, s terminal.StylingOptions ) {
+func (t *Terminal) DrawAt(p terminal.Point, s terminal.DrawningOptions ) {
 	t.scr.SetContent(p.X, p.Y, s.Primary, nil, tcell.StyleDefault.Background((tcell.Color(s.BackgroudColor))).Foreground(tcell.Color(s.ForegroundColor)))
 }
