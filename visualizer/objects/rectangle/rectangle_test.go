@@ -69,9 +69,9 @@ func TestHasHitScreenBorder(t *testing.T) {
 		   expectedResult.right == right {
 			   continue
 		   } else {
-			   t.Errorf("Invalid result for HasHitScreenBorder at point: %v \n(any, top, bottom, left, right)\nexpected:\n%v, %v, %v, %v, %v\ngot:\n%v, %v, %v, %v", p,
+			   t.Errorf("Invalid result for HasHitScreenBorder at point: %v \n(any, top, bottom, left, right)\nexpected:\n%v, %v, %v, %v, %v\ngot:\n%v, %v, %v, %v, %v", p,
 			   any, top, bottom, left, right, 
-			   expectedResult.any, expectedResult.bottom, expectedResult.left, expectedResult.right)
+			   expectedResult.any, expectedResult.top, expectedResult.bottom, expectedResult.left, expectedResult.right)
 		   }
 	}
 }
