@@ -1,5 +1,5 @@
 /*Package tcell wraps "github.com/gdamore/tcell/v2" package for drawning on the terminal 
-by implementing the terminal interface
+This is an implementation of the terminal.Screen and terminal.KeyboardListener interfaces
 */
 package tcell
 
@@ -20,7 +20,7 @@ func New() *Terminal {
 	return &Terminal{s}
 }
 
-//Init initializes the screnn for use
+//Init initializes the screen for use
 func (t *Terminal) Init() (error) {
 	if err := t.scr.Init(); err != nil {
 		return err
@@ -59,6 +59,6 @@ func (t *Terminal) Show() {
 }
 
 //DrawAt uses the tcell.Screen.SetContent() to draw at a specific point
-func (t *Terminal) DrawAt(p terminal.Point, s terminal.StylingOptions ) {
+func (t *Terminal) DrawAt(p terminal.Point, s terminal.DrawningOptions ) {
 	t.scr.SetContent(p.X, p.Y, s.Primary, nil, tcell.StyleDefault.Background((tcell.Color(s.BackgroudColor))).Foreground(tcell.Color(s.ForegroundColor)))
 }

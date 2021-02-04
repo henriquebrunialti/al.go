@@ -22,7 +22,6 @@ import (
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
-	"al.go/animate"
 )
 
 var cfgFile string
@@ -32,7 +31,7 @@ var rootCmd = &cobra.Command{
 	Use:   "al.go",
 	Short: "CLI Algorithms and Data Structures Visualizer",
 	Long: `This is a CLI Algorithms and Data Structures Visualizer made for educational purposes.`,
-	Run: func(cmd *cobra.Command, args []string) { animate.Run() },
+	Run: func(cmd *cobra.Command, args []string) { fmt.Errorf("bla") },
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

@@ -9,6 +9,7 @@ import (
 //Signal is a way to interact with a running animation
 type Signal int
 
+//Signals that can be send to a animation to change its state
 const (
 	Stop Signal = iota
 	Start 

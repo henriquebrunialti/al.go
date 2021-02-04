@@ -4,13 +4,13 @@ import (
 	"al.go/terminal"
 	"al.go/terminal/tcell"
 	"al.go/visualizer"
-	"al.go/visualizer/misc"
+	"al.go/visualizer/animations/misc"
 )
 
 func main() {
 	tc := tcell.New()
 	v := visualizer.New(tc)
-
+	
 	mv := misc.NewMovingRectangleAnimation()
 	keyEvents := make(chan terminal.KeyboardEvent)
 
