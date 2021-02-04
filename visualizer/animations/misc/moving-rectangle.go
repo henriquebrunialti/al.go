@@ -2,10 +2,9 @@ package misc
 
 import (
 	"time"
-
 	"al.go/terminal"
+	"al.go/terminal/objects/rectangle"
 	"al.go/visualizer"
-	"al.go/visualizer/objects/rectangle"
 )
 
 
