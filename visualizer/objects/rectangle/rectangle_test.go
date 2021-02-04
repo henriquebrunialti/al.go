@@ -75,3 +75,22 @@ func TestHasHitScreenBorder(t *testing.T) {
 		   }
 	}
 }
+
+func TestDraw(t *testing.T) {
+	scr := &mocks.ScreenMock{
+		DrawAtFunc: func(p terminal.Point, options terminal.DrawningOptions) {
+			return
+		},
+	}
+	originalPoint := terminal.Point{X: 2, Y: 2,}
+	rect := Rectangle{TopLeftCorner: originalPoint, Width: 10, Height: 10,}
+	//Since a character on the terminal is slightly taller than it is broader, 
+	//we must occupy two characters on the width of the rectangle to get better proportions
+	area := (rect.Width * 2) * rect.Height
+
+	rect.Draw(scr, terminal.ColorBlue)
+
+	if len(scr.DrawAtCalls()) != area {
+		t.Errorf("Calls to method DrawAt() are different than the rectangle Area. expected %v, got %v", area, len(scr.DrawAtCalls()))
+	}
+}
