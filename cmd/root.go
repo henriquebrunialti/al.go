@@ -1,17 +1,5 @@
 /*
-Copyright © 2021 NAME HERE <EMAIL ADDRESS>
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Copyright © 2021 henrique.brunialti@gmail.com
 */
 package cmd
 
@@ -30,8 +18,17 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "al.go",
 	Short: "CLI Algorithms and Data Structures Visualizer",
-	Long: `This is a CLI Algorithms and Data Structures Visualizer made for educational purposes.`,
-	Run: func(cmd *cobra.Command, args []string) { fmt.Errorf("bla") },
+	Long: `This is a CLI Algorithms and Data Structures Visualizer`,
+	Run: func(cmd *cobra.Command, args []string) { 
+		fmt.Printf("This is a CLI Algorithms and Data structures Visualizer. Use help or -h to checkout supported algorithms")
+		fmt.Printf("\n\nUsage Example:\nal.go [Algorithm Type] [Algorithm Name]\n")
+
+		fmt.Printf("\nTYPES\n\n")
+		
+		fmt.Printf("al.go misc                 Fun Miscellaneous Animations\n")
+		fmt.Printf("al.go sorting              Sorting Algorithms\n")
+		fmt.Printf("al.go graphs               Algorithms on graphs\n\n\n")
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

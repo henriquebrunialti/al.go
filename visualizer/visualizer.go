@@ -1,6 +1,7 @@
 package visualizer
 
 import (
+	"context"
 	"log"
 	"time"
 
@@ -28,19 +29,19 @@ func New(scr terminal.Screen) *Visualizer {
 }
 
 //Visualize an Animation
-func (v *Visualizer) Visualize(animation Animation, keyboard <-chan terminal.KeyboardEvent) {
+func (v *Visualizer) Visualize(ctx context.Context, animation Animation, keyboard <-chan terminal.KeyboardEvent) {
 	err := v.Scr.Init()
-
 	if err != nil {
 		log.Fatalf("Fatal error, could not initialize the screen: %v", err)
 		return
 	}
+	
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
 
 	v.animation = animation
-
 	s := make(chan Signal)
-
-	go animation.Run(v.Scr, v.Ticker, s)
+	go animation.Run(ctx, v.Scr, v.Ticker, s)
 	for !v.exit {
 		select {
 		case evt := <-keyboard:
@@ -51,13 +52,13 @@ func (v *Visualizer) Visualize(animation Animation, keyboard <-chan terminal.Key
 
 func (v *Visualizer) handleKeyboard(evt *terminal.KeyboardEvent, s chan<- Signal) {
 	if evt.KeyPressed == "Esc" {
-		s <- Stop
+
 		v.exit = true
 		return
 	}
 	if evt.KeyPressed == "Enter" {
 		if v.animation.CurrentState().IsRunning {
-			s <- Stop
+			s <- Pause
 		} else {
 			s <- Start
 		}

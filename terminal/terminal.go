@@ -4,7 +4,7 @@ package terminal
 type Screen interface {
 	Init() error
 	Size() (width int, height int)
-	Clear() 
+	Clear()
 	DrawAt(p Point, options DrawningOptions)
 	Show()
 }
@@ -30,8 +30,8 @@ type Point struct {
 type DrawningOptions struct {
 	Primary rune
 
-	BackgroudColor Color
-	ForegroundColor Color 
+	BackgroudColor  Color
+	ForegroundColor Color
 }
 
 //Key represents a Key on the keyboard e.g "Esc", "Enter"...
@@ -40,7 +40,6 @@ type Key string
 
 //Color Todo review the way we handle color
 type Color uint64
-
 
 const colorValid = 1 << 32
 

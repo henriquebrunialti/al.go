@@ -2,6 +2,8 @@ package misc
 
 import (
 	"time"
+	"context"
+
 	"al.go/terminal"
 	"al.go/terminal/objects/rectangle"
 	"al.go/visualizer"
@@ -27,7 +29,7 @@ func NewMovingRectangleAnimation() *MovingRectangle {
 }
 
 //Run the animation
-func (mv *MovingRectangle) Run(scr terminal.Screen, ticker *time.Ticker, signal <-chan visualizer.Signal) {
+func (mv *MovingRectangle) Run(ctx context.Context, scr terminal.Screen, ticker *time.Ticker, signal <-chan visualizer.Signal) {
 	colors := []terminal.Color{ terminal.ColorBlue, terminal.ColorGreen, terminal.ColorYellow, terminal.ColorAqua, terminal.ColorGray }
 	currentColorIdx := 0
 	w, _ := scr.Size()
@@ -36,7 +38,7 @@ func (mv *MovingRectangle) Run(scr terminal.Screen, ticker *time.Ticker, signal 
 	}
 	velX, velY := 1, 1
 	mv.state.IsRunning = true
-	mv.rect = newRectangle((w-1)/2, 3, 2, 2)
+	mv.rect = newRectangle((w-1)/2, 3, 4, 2)
 	for {
 		select {
 		case <-ticker.C:
@@ -49,6 +51,8 @@ func (mv *MovingRectangle) Run(scr terminal.Screen, ticker *time.Ticker, signal 
 			}
 		case s := <-signal:
 			mv.handleSignal(s)
+		case <-ctx.Done():
+			return
 		}
 	}
 }
@@ -77,7 +81,7 @@ func (mv *MovingRectangle) CurrentState() visualizer.AnimationState {
 
 func (mv *MovingRectangle) handleSignal(s visualizer.Signal) {
 	switch s {
-	case visualizer.Stop:
+	case visualizer.Pause:
 		mv.state.IsRunning = false
 	case visualizer.Start:
 		mv.state.IsRunning = true
