@@ -35,10 +35,8 @@ func (v *Visualizer) Visualize(ctx context.Context, animation Animation, keyboar
 		log.Fatalf("Fatal error, could not initialize the screen: %v", err)
 		return
 	}
-	
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
-
 	v.animation = animation
 	s := make(chan Signal)
 	go animation.Run(ctx, v.Scr, v.Ticker, s)
@@ -52,8 +50,8 @@ func (v *Visualizer) Visualize(ctx context.Context, animation Animation, keyboar
 
 func (v *Visualizer) handleKeyboard(evt *terminal.KeyboardEvent, s chan<- Signal) {
 	if evt.KeyPressed == "Esc" {
-
 		v.exit = true
+		s <- Pause
 		return
 	}
 	if evt.KeyPressed == "Enter" {

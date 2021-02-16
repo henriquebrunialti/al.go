@@ -12,7 +12,7 @@ type Signal int
 
 //Signals that can be send to a animation to change its state
 const (
-	Pause Signal = iota
+	Pause Signal = 1 + iota
 	Start 
 )
 
