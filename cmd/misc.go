@@ -16,31 +16,36 @@ limitations under the License.
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/spf13/cobra"
 )
 
-// echoCmd represents the echo command
-var echoCmd = &cobra.Command{
-	Use:   "echo",
+// miscCmd represents the misc command
+var miscCmd = &cobra.Command{
+	Use:   "misc",
+	Short: "Miscellaneous Animations Loops",
+	Long: `Just some miscellaneous annimation loops made for fun`,
 	Run: func(cmd *cobra.Command, args []string) {
-		dancingCursor()
+		fmt.Printf("This are some miscellaneous animations.")
+		fmt.Printf("\nUse -h to list all supported animations.\n")
+		
+		fmt.Printf("\nANIMATIONS:\n")
+		fmt.Printf("\nal.go misc moving-rectangle	 A rectangle moving around the screen")
+
 	},
 }
 
-func dancingCursor() {
-
-}
-
 func init() {
-	rootCmd.AddCommand(echoCmd)
+	rootCmd.AddCommand(miscCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// echoCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// miscCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// echoCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// miscCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

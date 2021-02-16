@@ -1,20 +1,9 @@
 package main
 
 import (
-	"al.go/terminal"
-	"al.go/terminal/tcell"
-	"al.go/visualizer"
-	"al.go/visualizer/animations/misc"
+	"al.go/cmd"
 )
 
 func main() {
-	tc := tcell.New()
-	v := visualizer.New(tc)
-	
-	mv := misc.NewMovingRectangleAnimation()
-	keyEvents := make(chan terminal.KeyboardEvent)
-
-	go tc.WaitForEvent(keyEvents)
-
-	v.Visualize(mv, keyEvents)
+	cmd.Execute()
 }
