@@ -20,7 +20,7 @@ const (
 type Animation interface {
 	//Run starts the Animation and receives a Channel where the client can send signals to interact with the Running animation
 	//The animation will move everytime the ticker ticks
-	//The only way to change the current state of an animation is to send a signal over the signal channel
+	//The only way to change the current state of an animation is to send a signal over the signal's channel
 	Run(ctx context.Context, scr terminal.Screen, ticker *time.Ticker, signal <-chan Signal) 
 
 	//CurrentState is the only way to get the current state from an Animation.
