@@ -1,6 +1,4 @@
-/*
-Copyright © 2021 henrique.brunialti@gmail.com
-*/
+//Package cmd holds all the CLI commands such as "al.go sorting mergesort" or "al.go misc moving-rectangle"
 package cmd
 
 import (
