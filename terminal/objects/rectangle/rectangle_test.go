@@ -79,7 +79,6 @@ func TestHasHitScreenBorder(t *testing.T) {
 func TestDraw(t *testing.T) {
 	scr := &mocks.ScreenMock{
 		DrawAtFunc: func(p terminal.Point, options terminal.DrawningOptions) {
-			return
 		},
 	}
 	originalPoint := terminal.Point{X: 2, Y: 2,}
