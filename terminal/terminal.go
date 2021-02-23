@@ -11,7 +11,7 @@ type Screen interface {
 
 //KeyboardListener provides functions to handle keyboard events
 type KeyboardListener interface {
-	//Wait for event will wait for keyboard events and send then to the given channel
+	//Wait for event will wait for keyboard events and send then over the given channel
 	WaitForEvent(events chan<- KeyboardEvent)
 }
 
