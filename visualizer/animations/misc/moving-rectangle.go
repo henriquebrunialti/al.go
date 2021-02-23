@@ -1,14 +1,13 @@
 package misc
 
 import (
-	"time"
 	"context"
+	"time"
 
 	"al.go/terminal"
 	"al.go/terminal/objects/rectangle"
 	"al.go/visualizer"
 )
-
 
 //MovingRectangle is a Animation of a Rectangle Moving Around the screen
 type MovingRectangle struct {
@@ -17,7 +16,7 @@ type MovingRectangle struct {
 }
 
 func newRectangle(x int, y int, w, h int) *rectangle.Rectangle {
-	mr := &rectangle.Rectangle{TopLeftCorner: terminal.Point{X: x, Y: y}, Width: w, Height: h,}
+	mr := &rectangle.Rectangle{TopLeftCorner: terminal.Point{X: x, Y: y}, Width: w, Height: h}
 	return mr
 }
 
@@ -30,7 +29,7 @@ func NewMovingRectangleAnimation() *MovingRectangle {
 
 //Run the animation
 func (mv *MovingRectangle) Run(ctx context.Context, scr terminal.Screen, ticker *time.Ticker, signal <-chan visualizer.Signal) {
-	colors := []terminal.Color{ terminal.ColorBlue, terminal.ColorGreen, terminal.ColorYellow, terminal.ColorAqua, terminal.ColorGray }
+	colors := []terminal.Color{terminal.ColorBlue, terminal.ColorGreen, terminal.ColorYellow, terminal.ColorAqua, terminal.ColorGray}
 	currentColorIdx := 0
 	w, _ := scr.Size()
 	if w/2%2 == 1 {
@@ -71,7 +70,7 @@ func (mv *MovingRectangle) handleCollision(scr terminal.Screen, velX, velY, curr
 	if left || right {
 		velX *= -1
 	}
-	return velX, velY, currentColorIdx	
+	return velX, velY, currentColorIdx
 }
 
 //CurrentState ...

@@ -4,8 +4,8 @@
 package mocks
 
 import (
-	"sync"
 	"al.go/terminal"
+	"sync"
 )
 
 // Ensure, that ScreenMock does implement Screen.
