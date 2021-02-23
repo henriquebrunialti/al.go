@@ -1,6 +1,4 @@
-/*
-Copyright © 2021 henrique.brunialti@gmail.com
-*/
+//Package cmd holds all the CLI commands such as "al.go sorting mergesort" or "al.go misc moving-rectangle"
 package cmd
 
 import (
@@ -18,13 +16,13 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "al.go",
 	Short: "CLI Algorithms and Data Structures Visualizer",
-	Long: `This is a CLI Algorithms and Data Structures Visualizer`,
-	Run: func(cmd *cobra.Command, args []string) { 
+	Long:  `This is a CLI Algorithms and Data Structures Visualizer`,
+	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Printf("This is a CLI Algorithms and Data structures Visualizer. Use help or -h to checkout supported algorithms")
 		fmt.Printf("\n\nUsage Example:\nal.go [Algorithm Type] [Algorithm Name]\n")
 
 		fmt.Printf("\nTYPES\n\n")
-		
+
 		fmt.Printf("al.go misc                 Fun Miscellaneous Animations\n")
 		fmt.Printf("al.go sorting              Sorting Algorithms\n")
 		fmt.Printf("al.go graphs               Algorithms on graphs\n\n\n")

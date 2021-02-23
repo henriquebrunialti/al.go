@@ -41,8 +41,8 @@ func (v *Visualizer) Visualize(ctx context.Context, animation Animation, keyboar
 	s := make(chan Signal)
 	go animation.Run(ctx, v.Scr, v.Ticker, s)
 	for !v.exit {
-		 evt := <-keyboard
-		 v.handleKeyboard(&evt, s)
+		evt := <-keyboard
+		v.handleKeyboard(&evt, s)
 	}
 }
 

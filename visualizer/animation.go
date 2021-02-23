@@ -1,9 +1,9 @@
 package visualizer
 
 import (
-	"time"
 	"context"
-	
+	"time"
+
 	"al.go/terminal"
 )
 
@@ -13,7 +13,7 @@ type Signal int
 //Signals that can be sent to an animation to change its state
 const (
 	Pause Signal = 1 + iota
-	Start 
+	Start
 )
 
 //Animation represents an animation that can be run on a terminal window
