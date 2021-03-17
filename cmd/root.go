@@ -25,7 +25,6 @@ var rootCmd = &cobra.Command{
 
 		fmt.Printf("al.go misc                 Fun Miscellaneous Animations\n")
 		fmt.Printf("al.go sorting              Sorting Algorithms\n")
-		fmt.Printf("al.go graphs               Algorithms on graphs\n\n\n")
 	},
 }
 

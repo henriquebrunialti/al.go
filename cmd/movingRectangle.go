@@ -25,8 +25,8 @@ var movingRectangleCmd = &cobra.Command{
 		v := visualizer.New(tc)
 		mv := misc.NewMovingRectangleAnimation()
 		keyEvents := make(chan terminal.KeyboardEvent)
-		go tc.WaitForEvent(keyEvents)
-		v.Visualize(ctx, mv, keyEvents)
+		go v.Visualize(ctx, mv, keyEvents)
+		tc.WaitForEvent(keyEvents)
 	},
 }
 

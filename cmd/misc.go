@@ -4,20 +4,22 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+
 )
 
 // miscCmd represents the misc command
 var miscCmd = &cobra.Command{
 	Use:   "misc",
 	Short: "Miscellaneous Animations Loops",
-	Long:  `Just some miscellaneous annimation loops made for fun`,
+	Long:  `Some miscellaneous annimation loops made for fun`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("This are some miscellaneous animations.")
+
+
+		fmt.Printf("These are some miscellaneous animations.")
 		fmt.Printf("\nUse -h to list all supported animations.\n")
 
 		fmt.Printf("\nANIMATIONS:\n")
 		fmt.Printf("\nal.go misc moving-rectangle	 A rectangle moving around the screen")
-
 	},
 }
 
